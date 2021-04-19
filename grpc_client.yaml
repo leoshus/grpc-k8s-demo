@@ -20,8 +20,8 @@ spec:
           args:
             - --address
             - grpc-server-service.default.svc.cluster.local
-            - --timeout
-            - "1"
+#            - --timeout
+#            - "1"
           env:
             - name: GRPC_GO_RETRY
               value: "on"
