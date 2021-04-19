@@ -19,7 +19,7 @@ spec:
             - client
           args:
             - --address
-            - grpc-server.svc:31250
+            - grpc-server-service.default.svc.cluster.local
             - --timeout
             - "1"
           env:

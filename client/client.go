@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/backoff"
 	"google.golang.org/grpc/balancer/roundrobin"
-	"google.golang.org/grpc/resolver"
 	"log"
+	"strings"
 	"time"
 )
 
@@ -18,8 +18,7 @@ func main() {
 	var address string
 	flag.StringVar(&address, "address", "localhost:8088", "grpc server address")
 	flag.Parse()
-	resolver.SetDefaultScheme("dns")
-	conn, err := grpc.Dial(address, grpc.WithInsecure(),
+	conn, err := grpc.Dial(strings.Join([]string{"dns:///", address}, ""), grpc.WithInsecure(),
 		grpc.WithDefaultServiceConfig(fmt.Sprintf(`{"LoadBalancingPolicy":"%s"}`, roundrobin.Name)),
 		grpc.WithBlock(),
 		grpc.WithConnectParams(grpc.ConnectParams{
