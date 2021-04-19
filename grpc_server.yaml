@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-server
+  labels:
+    app-name: grpc-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app-name: grpc-server
+  template:
+    metadata:
+      labels:
+        app-name: grpc-server
+      name: grpc-server
+    spec:
+      containers:
+        - command:
+          - server
+          image: docker.io/leoshus/grpc-demo:latest
+          imagePullPolicy: Always
+          name: server
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: 100Mi
+            requests:
+              cpu: "0.5"
+              memory: 100Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app-name: grpc-server
+  name: grpc-server-service
+spec:
+  clusterIP: None
+  ports:
+    - name: grpc
+      port: 31250
+      protocol: TCP
+      targetPort: 8088
+  selector:
+    app-name: grpc-server
+

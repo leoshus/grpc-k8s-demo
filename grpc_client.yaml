@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-server
+  labels:
+    app-name: grpc-server
+spec:
+  selector:
+    matchLabels:
+      app-name: grpc-server
+  template:
+    metadata:
+      labels:
+        app-name: grpc-server
+      name: grpc-server
+    spec:
+      containers:
+        - command:
+            - client
+          args:
+            - --address
+            - grpc-server.svc:31250
+            - --timeout
+            - "1"
+          env:
+            - name: GRPC_GO_RETRY
+              value: "on"
+          image: docker.io/leoshus/grpc-demo:latest
+          imagePullPolicy: Always
+          name: server
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: 100Mi
+            requests:
+              cpu: "0.5"
+              memory: 100Mi
+      restartPolicy: Always
+
