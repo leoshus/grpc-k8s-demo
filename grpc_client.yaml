@@ -25,7 +25,7 @@ spec:
           env:
             - name: GRPC_GO_RETRY
               value: "on"
-          image: docker.io/leoshus/grpc-demo:v3
+          image: docker.io/leoshus/grpc-demo:v6
           imagePullPolicy: Always
           name: client
           resources:

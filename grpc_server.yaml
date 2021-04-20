@@ -18,7 +18,7 @@ spec:
       containers:
         - command:
           - server
-          image: docker.io/leoshus/grpc-demo:v3
+          image: docker.io/leoshus/grpc-demo:v6
           imagePullPolicy: Always
           name: server
           resources:

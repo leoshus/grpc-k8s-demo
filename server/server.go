@@ -26,7 +26,11 @@ func (h *HelloServer) SayHello(ctx context.Context, req *hello.HelloRequest) (*h
 func main() {
 	server := grpc.NewServer()
 	hello.RegisterGreeterServer(server, &HelloServer{})
-	listener, _ := net.Listen("tcp", "127.0.0.1:8088")
+	listener, err := net.Listen("tcp", ":8088")
+	if err != nil {
+		log.Printf("start server listen error:%v", err)
+		return
+	}
 	log.Println("start server...")
 	if err := server.Serve(listener); err != nil {
 		log.Printf("start server error:%v", err)

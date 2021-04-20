@@ -1,1 +1,1 @@
-docker build -t leoshus/grpc-demo:v3 .
+docker build -t leoshus/grpc-demo:v6 .
