@@ -5,6 +5,7 @@ import (
 	"fmt"
 	hello "github.com/leoshus/proto-demo/pb"
 	"google.golang.org/grpc"
+	"log"
 	"net"
 	"os"
 	"time"
@@ -26,5 +27,8 @@ func main() {
 	server := grpc.NewServer()
 	hello.RegisterGreeterServer(server, &HelloServer{})
 	listener, _ := net.Listen("tcp", "127.0.0.1:8088")
-	server.Serve(listener)
+	log.Println("start server...")
+	if err := server.Serve(listener); err != nil {
+		log.Printf("start server error:%v", err)
+	}
 }

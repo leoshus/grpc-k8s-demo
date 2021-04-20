@@ -18,9 +18,10 @@ func main() {
 	var address string
 	flag.StringVar(&address, "address", "localhost:8088", "grpc server address")
 	flag.Parse()
+	log.Println("grpc client start begin...")
 	conn, err := grpc.Dial(strings.Join([]string{"dns:///", address}, ""), grpc.WithInsecure(),
 		grpc.WithDefaultServiceConfig(fmt.Sprintf(`{"LoadBalancingPolicy":"%s"}`, roundrobin.Name)),
-		grpc.WithBlock(),
+		//grpc.WithBlock(),
 		grpc.WithConnectParams(grpc.ConnectParams{
 			Backoff: backoff.Config{
 				MaxDelay: 2 * time.Second,
@@ -31,6 +32,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	log.Println("grpc client start success")
 	defer conn.Close()
 	client := hello.NewGreeterClient(conn)
 	for range time.Tick(time.Second) {
