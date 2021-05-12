@@ -19,7 +19,7 @@ spec:
             - client
           args:
             - --address
-            - grpc-server-service.default.svc.cluster.local:8088
+            - grpc-server-service:8088"
           env:
             - name: GRPC_GO_RETRY
               value: "on"

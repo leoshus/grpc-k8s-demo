@@ -5,7 +5,7 @@ metadata:
   labels:
     app-name: grpc-server
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app-name: grpc-server
@@ -42,7 +42,7 @@ spec:
     - name: grpc
       port: 31250
       protocol: TCP
-      targetPort: 8088
+      targetPort: nsl
   selector:
     app-name: grpc-server
 
